@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Конвертер Валют{% endblock %}
+
+{% block header %}
+    <h1>Конвертер Валют</h1>
+{% endblock %}
+
+{% block content %}
+    <!-- Форма для введення валюти і суми -->
+    <form method="POST" action="/">
+        <label for="base_currency">Виберіть базову валюту:</label>
+        <select id="base_currency" name="base_currency" required>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="PLN">PLN</option>
+        </select>
+
+        <label for="target_currency">Виберіть цільову валюту:</label>
+        <select id="target_currency" name="target_currency" required>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="PLN">PLN</option>
+        </select>
+
+        <label for="amount">Сума для конвертації:</label>
+        <input type="text" id="amount" name="amount" placeholder="Введіть суму" required>
+
+        <button type="submit">Конвертувати</button>
+    </form>
+
+    <!-- Виведення результату конвертації -->
+    {% if result %}
+    <div class="result">
+        <p>{{ amount }} {{ base_currency }} = {{ result }} {{ target_currency }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Flash-повідомлення про помилки -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="error">
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+{% endblock %}
